@@ -134,7 +134,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Mockups Area */}
-        <FadeIn delay={600} direction="up" className="relative max-w-6xl mx-auto mb-24">
+        <FadeIn delay={600} direction="up" className="relative max-w-6xl mx-auto mb-10">
           
           {/* PC Mockup */}
           <div className="relative z-10 bg-[#111111] rounded-2xl p-1.5 md:p-3 shadow-[0_30px_60px_rgba(0,0,0,0.8)] border border-gray-700/50 backdrop-blur-sm ring-1 ring-white/10">
@@ -309,38 +309,6 @@ export const Hero: React.FC = () => {
             </div>
           </div>
         </FadeIn>
-
-        {/* Clients / Logos Section */}
-        <div className="text-center pt-4 md:pt-8 pb-4 relative z-10">
-           <div className="flex flex-wrap justify-center items-center gap-6 md:gap-16 opacity-80">
-              {/* Logo 1: SENGA */}
-              <div className="bg-white/90 px-6 py-3 md:px-8 md:py-4 rounded shadow-lg backdrop-blur-sm hover:scale-105 transition-transform duration-300">
-                  <div className="text-navy-900 font-serif text-lg md:text-xl tracking-wider font-bold border-b border-blue-200 pb-1 mb-1">SENGA</div>
-                  <div className="text-[8px] md:text-[10px] text-gray-500 tracking-wider">DENTAL CLINIC</div>
-              </div>
-
-              {/* Logo 2: MITSUKYO */}
-              <div className="bg-white/90 px-6 py-3 md:px-8 md:py-4 rounded shadow-lg backdrop-blur-sm hover:scale-105 transition-transform duration-300 flex items-center gap-2 md:gap-3">
-                 <div className="text-[#C5A572]">
-                    <svg className="w-6 h-6 md:w-8 md:h-8 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                 </div>
-                 <div className="text-left leading-tight">
-                    <div className="text-[8px] md:text-[10px] text-gray-400 tracking-wider uppercase">Mitsukyo</div>
-                    <div className="text-gray-800 font-serif text-sm md:text-base font-bold">スマイル歯科</div>
-                 </div>
-              </div>
-
-              {/* Logo 3: Niimi */}
-              <div className="bg-white/90 px-6 py-3 md:px-8 md:py-4 rounded shadow-lg backdrop-blur-sm hover:scale-105 transition-transform duration-300 flex flex-col items-center">
-                 <div className="text-[#ff8da1] font-bold text-base md:text-lg tracking-widest flex items-center gap-1">
-                    <span>🦷</span> 新美歯科
-                 </div>
-                 <div className="text-[8px] md:text-[10px] text-gray-400 tracking-wider uppercase">Niimi Dental</div>
-              </div>
-           </div>
-           <p className="text-gray-400 text-[10px] md:text-xs tracking-widest mt-6 md:mt-8 uppercase opacity-70">Trusted by Dental Clinics</p>
-        </div>
-
       </div>
     </section>
   );
