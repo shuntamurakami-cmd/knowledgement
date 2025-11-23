@@ -12,9 +12,9 @@ import {
   BookOpen,
   Layout,
   Filter,
-  Settings,
-  FileText
+  Settings
 } from 'lucide-react';
+import { FileText } from 'lucide-react';
 
 const NotionSidebarItem = ({ icon: Icon, label, active = false }: { icon: any, label: string, active?: boolean }) => (
   <div className={`flex items-center gap-3 px-3 py-1.5 rounded cursor-pointer transition-colors ${active ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-900 hover:text-white'}`}>
@@ -143,7 +143,11 @@ export const Hero: React.FC = () => {
                <div className="w-1 md:w-1.5 h-1 md:h-1.5 bg-gray-800 rounded-full"></div>
             </div>
 
-            <div className="bg-white rounded-xl overflow-hidden flex h-[300px] sm:h-[400px] md:h-[700px]">
+            {/* 
+               Updated: Increased min-height for mobile to ensure content isn't cut off.
+               h-[500px] on mobile (was 300px)
+            */}
+            <div className="bg-white rounded-xl overflow-hidden flex h-[500px] sm:h-[600px] md:h-[700px]">
               
               {/* Sidebar (Black) */}
               <div className="w-72 bg-[#181818] text-white flex-col hidden md:flex border-r border-gray-800">
@@ -208,8 +212,8 @@ export const Hero: React.FC = () => {
                          </div>
                       </div>
 
-                      {/* Dashboard Grid */}
-                      <div className="hidden md:block">
+                      {/* Dashboard Grid - ALWAYS VISIBLE NOW */}
+                      <div className="block">
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 pl-1">Quick Access</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <DashboardCard icon={Folder} color="blue" label="経営管理" subItems={['年間カレンダー', 'お知らせ', '組織図']} />
@@ -252,9 +256,9 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile Mockup (Floating Bottom Left) */}
+          {/* Mobile Mockup (Floating Bottom Left) - Height Increased */}
           <div className="absolute -bottom-8 -left-4 md:-left-16 w-40 sm:w-56 md:w-[320px] bg-[#222] rounded-[2rem] md:rounded-[3rem] p-2 md:p-4 shadow-[0_30px_60px_rgba(0,0,0,0.7)] border-[4px] md:border-[6px] border-[#333] transform -rotate-2 z-20 hidden sm:block ring-1 ring-white/5">
-            <div className="bg-white rounded-[1.5rem] md:rounded-[2.2rem] overflow-hidden h-[350px] sm:h-[450px] md:h-[550px] relative border border-gray-200">
+            <div className="bg-white rounded-[1.5rem] md:rounded-[2.2rem] overflow-hidden h-[500px] sm:h-[600px] md:h-[700px] relative border border-gray-200">
                {/* Mobile Notch */}
                <div className="absolute top-0 left-1/2 -translate-x-1/2 h-4 md:h-7 w-24 md:w-36 bg-black rounded-b-xl md:rounded-b-2xl z-30"></div>
                
