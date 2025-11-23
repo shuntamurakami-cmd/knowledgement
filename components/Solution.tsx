@@ -47,8 +47,14 @@ export const Solution: React.FC = () => {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
             <div className="relative bg-white border border-blue-100 rounded-2xl p-8 md:p-12 shadow-xl">
-              <p className="text-xl md:text-3xl text-navy-900 leading-relaxed font-medium">
-                Notionを活用し、<span className="bg-yellow-100 px-2 py-1 rounded">院長の思考を「仕組み」に変える</span><br />
+              {/* 
+                 Updated: 
+                 - Added 'leading-loose' to prevent yellow highlight overlapping the text above.
+                 - Added 'whitespace-nowrap inline-block' to the span to prevent "ru" from hanging on a new line.
+              */}
+              <p className="text-xl md:text-3xl text-navy-900 leading-loose font-medium">
+                Notionを活用し、<br />
+                <span className="bg-yellow-100 px-2 py-1 rounded inline-block whitespace-nowrap">院長の思考を「仕組み」に変える</span><br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 font-black text-3xl md:text-5xl mt-4 inline-block tracking-tight">
                   3つの武器（三層構造）
                 </span>
@@ -74,9 +80,6 @@ export const Solution: React.FC = () => {
             <FadeIn direction="right" className="w-full lg:w-1/2 order-2 lg:order-1">
                <div className="relative group">
                  <div className="absolute -inset-4 bg-blue-200/50 rounded-[2.5rem] -rotate-2 blur-sm transition-all group-hover:rotate-0 group-hover:bg-blue-300/50"></div>
-                 {/* 
-                    Image Path Updated: /image/demo-common.png
-                 */}
                  <img 
                    src="/image/demo-common.png" 
                    alt="共通ポータル画面デモ" 
@@ -150,9 +153,6 @@ export const Solution: React.FC = () => {
             <FadeIn direction="left" className="w-full lg:w-1/2">
                <div className="relative group">
                  <div className="absolute -inset-4 bg-navy-800 rounded-[2.5rem] rotate-2 opacity-50 transition-all group-hover:rotate-0"></div>
-                 {/* 
-                    Image Path Updated: /image/demo-dept.png
-                 */}
                  <img 
                    src="/image/demo-dept.png" 
                    alt="部署ポータル画面デモ" 
@@ -179,9 +179,6 @@ export const Solution: React.FC = () => {
             <FadeIn direction="right" className="w-full lg:w-1/2 order-2 lg:order-1">
                <div className="relative group">
                  <div className="absolute -inset-4 bg-orange-200/50 rounded-[3rem] -rotate-2 blur-sm transition-all group-hover:rotate-0"></div>
-                 {/* 
-                    Image Path Updated: /image/demo-mobile.png
-                 */}
                  <img 
                    src="/image/demo-mobile.png" 
                    alt="個人ポータルスマホ画面デモ" 
