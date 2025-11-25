@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { FadeIn } from './ui/FadeIn';
 import { MessageCircle, Settings, Users, TrendingUp, ChevronDown, ArrowRight, CheckCircle, Mail, Loader2 } from 'lucide-react';
@@ -46,9 +47,19 @@ export const Process: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
+    
     const formData = new FormData(e.currentTarget);
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+
+    // マーケティングチーム要望: 明示的な入力チェック
+    // 基本的にはHTMLのrequired属性で弾かれますが、念の為ロジックでもチェックします
+    if (!name || !email || name.trim() === '' || email.trim() === '') {
+      alert('お名前とメールアドレスは必須項目です。');
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
@@ -61,6 +72,7 @@ export const Process: React.FC = () => {
 
       if (response.ok) {
         // GTM Event Push
+        // 送信成功（入力不備なし）の場合のみ発火
         (window as any).dataLayer = (window as any).dataLayer || [];
         (window as any).dataLayer.push({
           event: 'lp_contact_form_sent'
@@ -78,7 +90,7 @@ export const Process: React.FC = () => {
   };
 
   return (
-    <section className="py-24 bg-gray-100 relative overflow-hidden border-t border-gray-200">
+    <section className="py-24 bg-gray-200 relative overflow-hidden border-t border-gray-300">
       <div className="container mx-auto px-4">
         
         <div className="text-center max-w-4xl mx-auto mb-16">
@@ -110,7 +122,7 @@ export const Process: React.FC = () => {
                 <div className="relative flex gap-6 md:gap-12 items-start group">
                   
                   {/* Left Column: Number & Icon */}
-                  <div className="flex flex-col items-center relative z-10 flex-shrink-0 w-20 md:w-24 bg-gray-100 py-2">
+                  <div className="flex flex-col items-center relative z-10 flex-shrink-0 w-20 md:w-24 bg-gray-200 py-2">
                     <div className="w-16 h-16 md:w-24 md:h-24 bg-white rounded-full border-4 border-white shadow-xl flex items-center justify-center group-hover:scale-110 group-hover:border-blue-200 transition-all duration-300 relative z-20">
                        <span className="text-2xl md:text-4xl font-black text-blue-600">{item.step}</span>
                     </div>
@@ -118,7 +130,7 @@ export const Process: React.FC = () => {
 
                   {/* Right Column: Content Card */}
                   <div className="flex-1 pt-2">
-                    <div className="bg-white rounded-3xl p-8 md:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.05)] border-2 border-gray-200 hover:border-blue-300 hover:shadow-[0_20px_50px_rgba(59,130,246,0.1)] transition-all duration-300 relative overflow-hidden">
+                    <div className="bg-white rounded-3xl p-8 md:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.05)] border-2 border-gray-300 hover:border-blue-300 hover:shadow-[0_20px_50px_rgba(59,130,246,0.1)] transition-all duration-300 relative overflow-hidden">
                       
                       <div className="flex items-center justify-center md:justify-between mb-6 border-b border-gray-100 pb-4">
                          <div className="flex items-center gap-3">
@@ -166,6 +178,7 @@ export const Process: React.FC = () => {
 
         {/* Contact Form Section */}
         <FadeIn delay={200}>
+           {/* Added id="contactForm" for GTM targeting */}
            <div id="contact-form" className="relative z-20 max-w-3xl mx-auto bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.1)] border-2 border-blue-100 overflow-hidden mt-0">
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center">
                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
@@ -197,7 +210,7 @@ export const Process: React.FC = () => {
                   </div>
                 ) : (
                   /* Form View */
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6" id="contactForm">
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Clinic Name */}
                       <div className="col-span-2">
@@ -207,6 +220,7 @@ export const Process: React.FC = () => {
                         <input 
                           type="text"
                           name="company"
+                          id="company" 
                           required
                           placeholder="例: デモ歯科クリニック"
                           className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
@@ -220,7 +234,8 @@ export const Process: React.FC = () => {
                         </label>
                         <input 
                           type="text"
-                          name="name" 
+                          name="name"
+                          id="name" 
                           required
                           placeholder="例: 山田 太郎"
                           className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
@@ -235,6 +250,7 @@ export const Process: React.FC = () => {
                         <input 
                           type="text" 
                           name="role"
+                          id="role"
                           placeholder="例: 院長"
                           className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
                         />
@@ -249,6 +265,7 @@ export const Process: React.FC = () => {
                       <input 
                         type="email" 
                         name="email"
+                        id="email"
                         required
                         placeholder="例: yamada@example.com"
                         className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
@@ -262,7 +279,8 @@ export const Process: React.FC = () => {
                       </label>
                       <input 
                         type="tel"
-                        name="tel" 
+                        name="tel"
+                        id="tel" 
                         required
                         placeholder="例: 08012345678"
                         className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
@@ -276,6 +294,7 @@ export const Process: React.FC = () => {
                       </label>
                       <textarea 
                         name="message"
+                        id="message"
                         rows={4}
                         placeholder="解決したい課題について、補足説明があれば自由にご記入ください。"
                         className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all resize-y"
