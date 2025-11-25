@@ -53,10 +53,18 @@ export const Process: React.FC = () => {
     const email = formData.get('email') as string;
 
     // マーケティングチーム要望: 明示的な入力チェック
-    // 基本的にはHTMLのrequired属性で弾かれますが、念の為ロジックでもチェックします
     if (!name || !email || name.trim() === '' || email.trim() === '') {
       alert('お名前とメールアドレスは必須項目です。');
       return;
+    }
+
+    // マーケティングチーム要望: 入力済みなら即イベント送信（送信処理の前）
+    // これによりボタン押下時のバリデーション通過直後に1回だけ発火します。
+    if (typeof window !== 'undefined') {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({
+        event: 'lp_contact_form_sent'
+      });
     }
 
     setIsSubmitting(true);
@@ -71,13 +79,8 @@ export const Process: React.FC = () => {
       });
 
       if (response.ok) {
-        // GTM Event Push
-        // 送信成功（入力不備なし）の場合のみ発火
-        (window as any).dataLayer = (window as any).dataLayer || [];
-        (window as any).dataLayer.push({
-          event: 'lp_contact_form_sent'
-        });
-        
+        // 送信成功時の処理（画面切り替えのみ）
+        // ここでのGTM発火は削除しました（二重計測防止のため）
         setIsSubmitted(true);
       } else {
         alert("送信に失敗しました。もう一度お試しください。");
@@ -178,7 +181,6 @@ export const Process: React.FC = () => {
 
         {/* Contact Form Section */}
         <FadeIn delay={200}>
-           {/* Added id="contactForm" for GTM targeting */}
            <div id="contact-form" className="relative z-20 max-w-3xl mx-auto bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.1)] border-2 border-blue-100 overflow-hidden mt-0">
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center">
                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
