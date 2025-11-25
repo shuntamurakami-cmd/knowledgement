@@ -60,6 +60,12 @@ export const Process: React.FC = () => {
       });
 
       if (response.ok) {
+        // GTM Event Push
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: 'lp_contact_form_sent'
+        });
+        
         setIsSubmitted(true);
       } else {
         alert("送信に失敗しました。もう一度お試しください。");
