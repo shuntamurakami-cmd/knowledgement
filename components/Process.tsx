@@ -46,20 +46,27 @@ export const Process: React.FC = () => {
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqajlwez";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // 1. イベントのデフォルト動作と伝播を即座に停止（最優先）
     e.preventDefault();
+    e.stopPropagation();
     
+    // 2. 送信処理中なら何もしない（連打防止）
+    if (isSubmitting) return;
+
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
 
-    // マーケティングチーム要望: 明示的な入力チェック
+    // 3. 厳密な入力チェック (バリデーション)
+    // 名前またはメールアドレスが空、もしくは空白文字のみの場合はアラートを出して終了
+    // 重要: この return により、GTMイベント発火を含む後続処理はすべてキャンセルされます
     if (!name || !email || name.trim() === '' || email.trim() === '') {
       alert('お名前とメールアドレスは必須項目です。');
       return;
     }
 
-    // マーケティングチーム要望: 入力済みなら即イベント送信（送信処理の前）
-    // これによりボタン押下時のバリデーション通過直後に1回だけ発火します。
+    // 4. GTMイベントの発火 (バリデーション通過後、かつ送信処理の前)
+    // ここに到達した時点で「入力あり」かつ「未送信状態」であることが保証されます
     if (typeof window !== 'undefined') {
       (window as any).dataLayer = (window as any).dataLayer || [];
       (window as any).dataLayer.push({
@@ -67,6 +74,7 @@ export const Process: React.FC = () => {
       });
     }
 
+    // 5. データ送信処理開始
     setIsSubmitting(true);
 
     try {
@@ -79,9 +87,8 @@ export const Process: React.FC = () => {
       });
 
       if (response.ok) {
-        // 送信成功時の処理（画面切り替えのみ）
-        // ここでのGTM発火は削除しました（二重計測防止のため）
         setIsSubmitted(true);
+        // 成功時のGTM発火は二重計測の原因となるため行いません
       } else {
         alert("送信に失敗しました。もう一度お試しください。");
       }
