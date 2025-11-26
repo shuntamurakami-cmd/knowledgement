@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FadeIn } from './ui/FadeIn';
 import { MessageCircle, Settings, Users, TrendingUp, ChevronDown, ArrowRight, CheckCircle, Mail, Loader2 } from 'lucide-react';
 
@@ -41,32 +41,48 @@ const steps = [
 export const Process: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // リアルタイム入力チェック用のState
+  const [formValues, setFormValues] = useState({
+    company: '',
+    name: '',
+    role: '',
+    email: '',
+    tel: '',
+    message: ''
+  });
+  
+  // 必須項目が埋まっているかどうかのフラグ (名前とメールアドレス)
+  const isValid = formValues.name.trim() !== '' && formValues.email.trim() !== '';
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   // Formspree Endpoint
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqajlwez";
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    // 1. イベントのデフォルト動作と伝播を即座に停止（最優先）
+  // 入力変更ハンドラ
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormValues(prev => ({ ...prev, [name]: value }));
+  };
+
+  // 手動送信ハンドラ: type="button"のクリック時のみ発火
+  const handleManualSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    // 念のためデフォルト動作と伝播を停止
     e.preventDefault();
     e.stopPropagation();
-    
-    // 2. 送信処理中なら何もしない（連打防止）
-    if (isSubmitting) return;
 
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
+    // 連打防止 OR バリデーションNGなら即終了
+    if (isSubmitting || !isValid) return;
 
-    // 3. 厳密な入力チェック (バリデーション)
-    // 名前またはメールアドレスが空、もしくは空白文字のみの場合はアラートを出して終了
-    // 重要: この return により、GTMイベント発火を含む後続処理はすべてキャンセルされます
-    if (!name || !email || name.trim() === '' || email.trim() === '') {
-      alert('お名前とメールアドレスは必須項目です。');
-      return;
-    }
+    // フォームデータの取得
+    const form = formRef.current;
+    if (!form) return;
 
-    // 4. GTMイベントの発火 (バリデーション通過後、かつ送信処理の前)
-    // ここに到達した時点で「入力あり」かつ「未送信状態」であることが保証されます
+    const formData = new FormData(form);
+
+    // 【GTMイベント発火】
+    // ボタンが有効化され、クリックされた時点で発火（入力済みは保証されている）
     if (typeof window !== 'undefined') {
       (window as any).dataLayer = (window as any).dataLayer || [];
       (window as any).dataLayer.push({
@@ -74,7 +90,7 @@ export const Process: React.FC = () => {
       });
     }
 
-    // 5. データ送信処理開始
+    // 送信処理開始
     setIsSubmitting(true);
 
     try {
@@ -88,7 +104,6 @@ export const Process: React.FC = () => {
 
       if (response.ok) {
         setIsSubmitted(true);
-        // 成功時のGTM発火は二重計測の原因となるため行いません
       } else {
         alert("送信に失敗しました。もう一度お試しください。");
       }
@@ -219,7 +234,7 @@ export const Process: React.FC = () => {
                   </div>
                 ) : (
                   /* Form View */
-                  <form onSubmit={handleSubmit} className="space-y-6" id="contactForm">
+                  <form ref={formRef} className="space-y-6" id="contactForm">
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Clinic Name */}
                       <div className="col-span-2">
@@ -231,6 +246,8 @@ export const Process: React.FC = () => {
                           name="company"
                           id="company" 
                           required
+                          value={formValues.company}
+                          onChange={handleChange}
                           placeholder="例: デモ歯科クリニック"
                           className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
                         />
@@ -246,6 +263,8 @@ export const Process: React.FC = () => {
                           name="name"
                           id="name" 
                           required
+                          value={formValues.name}
+                          onChange={handleChange}
                           placeholder="例: 山田 太郎"
                           className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
                         />
@@ -260,6 +279,8 @@ export const Process: React.FC = () => {
                           type="text" 
                           name="role"
                           id="role"
+                          value={formValues.role}
+                          onChange={handleChange}
                           placeholder="例: 院長"
                           className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
                         />
@@ -276,6 +297,8 @@ export const Process: React.FC = () => {
                         name="email"
                         id="email"
                         required
+                        value={formValues.email}
+                        onChange={handleChange}
                         placeholder="例: yamada@example.com"
                         className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
                       />
@@ -291,6 +314,8 @@ export const Process: React.FC = () => {
                         name="tel"
                         id="tel" 
                         required
+                        value={formValues.tel}
+                        onChange={handleChange}
                         placeholder="例: 08012345678"
                         className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all"
                       />
@@ -305,6 +330,8 @@ export const Process: React.FC = () => {
                         name="message"
                         id="message"
                         rows={4}
+                        value={formValues.message}
+                        onChange={handleChange}
                         placeholder="解決したい課題について、補足説明があれば自由にご記入ください。"
                         className="w-full px-4 py-3.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all resize-y"
                       ></textarea>
@@ -313,9 +340,14 @@ export const Process: React.FC = () => {
                     {/* Submit Button */}
                     <div className="pt-4">
                       <button 
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-bold text-xl py-4 rounded-xl shadow-lg hover:shadow-indigo-500/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                        type="button"
+                        onClick={handleManualSubmit}
+                        disabled={isSubmitting || !isValid}
+                        className={`w-full font-bold text-xl py-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+                          isValid && !isSubmitting
+                            ? 'bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white hover:shadow-indigo-500/30 hover:-translate-y-0.5 cursor-pointer'
+                            : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        }`}
                       >
                         {isSubmitting ? (
                           <>
@@ -327,6 +359,12 @@ export const Process: React.FC = () => {
                           </>
                         )}
                       </button>
+                      {/* Helper text for disabled state */}
+                      {!isValid && (
+                        <p className="text-center text-sm text-red-500 mt-2 font-bold">
+                          ※必須項目（お名前・メールアドレス）を入力してください
+                        </p>
+                      )}
                     </div>
                   </form>
                 )}
