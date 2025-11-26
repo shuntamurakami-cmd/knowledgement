@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { FadeIn } from './ui/FadeIn';
 import { MessageCircle, Settings, Users, TrendingUp, ChevronDown, ArrowRight, CheckCircle, Mail, Loader2 } from 'lucide-react';
 
@@ -52,10 +52,11 @@ export const Process: React.FC = () => {
     message: ''
   });
   
-  // 必須項目が埋まっているかどうかのフラグ (名前とメールアドレス)
-  const isValid = formValues.name.trim() !== '' && formValues.email.trim() !== '';
-
-  const formRef = useRef<HTMLFormElement>(null);
+  // 必須項目チェック: 名前、メールアドレス、電話番号
+  const isValid = 
+    formValues.name.trim() !== '' && 
+    formValues.email.trim() !== '' && 
+    formValues.tel.trim() !== '';
 
   // Formspree Endpoint
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqajlwez";
@@ -66,23 +67,15 @@ export const Process: React.FC = () => {
     setFormValues(prev => ({ ...prev, [name]: value }));
   };
 
-  // 手動送信ハンドラ: type="button"のクリック時のみ発火
+  // 手動送信ハンドラ
   const handleManualSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    // 念のためデフォルト動作と伝播を停止
     e.preventDefault();
     e.stopPropagation();
 
     // 連打防止 OR バリデーションNGなら即終了
     if (isSubmitting || !isValid) return;
 
-    // フォームデータの取得
-    const form = formRef.current;
-    if (!form) return;
-
-    const formData = new FormData(form);
-
-    // 【GTMイベント発火】
-    // ボタンが有効化され、クリックされた時点で発火（入力済みは保証されている）
+    // GTMイベントの発火
     if (typeof window !== 'undefined') {
       (window as any).dataLayer = (window as any).dataLayer || [];
       (window as any).dataLayer.push({
@@ -92,6 +85,15 @@ export const Process: React.FC = () => {
 
     // 送信処理開始
     setIsSubmitting(true);
+
+    // FormDataを手動で構築（<form>タグを使わないため）
+    const formData = new FormData();
+    formData.append('company', formValues.company);
+    formData.append('name', formValues.name);
+    if (formValues.role) formData.append('role', formValues.role);
+    formData.append('email', formValues.email);
+    formData.append('tel', formValues.tel);
+    if (formValues.message) formData.append('message', formValues.message);
 
     try {
       const response = await fetch(FORMSPREE_ENDPOINT, {
@@ -233,8 +235,8 @@ export const Process: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  /* Form View */
-                  <form ref={formRef} className="space-y-6" id="contactForm">
+                  /* Form View - REPLACED <form> with <div> to prevent auto-detection */
+                  <div className="space-y-6" id="contactForm">
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Clinic Name */}
                       <div className="col-span-2">
@@ -362,11 +364,11 @@ export const Process: React.FC = () => {
                       {/* Helper text for disabled state */}
                       {!isValid && (
                         <p className="text-center text-sm text-red-500 mt-2 font-bold">
-                          ※必須項目（お名前・メールアドレス）を入力してください
+                          ※必須項目（お名前・メールアドレス・電話番号）を入力してください
                         </p>
                       )}
                     </div>
-                  </form>
+                  </div>
                 )}
               </div>
            </div>
