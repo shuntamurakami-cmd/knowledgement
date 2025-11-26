@@ -1,4 +1,6 @@
+
 import React from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Problem } from './components/Problem';
@@ -19,6 +21,7 @@ const App: React.FC = () => {
       </main>
       <Footer />
       <FloatingCTA />
+      <Analytics />
     </div>
   );
 };
