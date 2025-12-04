@@ -84,24 +84,24 @@ export const Hero: React.FC = () => {
         <div className="text-center w-full max-w-screen-2xl mx-auto mb-20 md:mb-24">
           <FadeIn delay={100}>
             
-            {/* Headline Label */}
+            {/* Headline Label - Increased size and padding */}
             <div className="flex justify-center mb-8 md:mb-10">
-               <div className="inline-flex items-center gap-3 px-4 py-1.5 md:px-6 md:py-2 rounded-full border border-white/30 bg-black/40 backdrop-blur-md shadow-lg">
-                  <span className="text-[10px] md:text-sm font-bold text-white tracking-widest shadow-black drop-shadow-sm">
+               <div className="inline-flex items-center gap-3 px-6 py-2 md:px-8 md:py-3 rounded-full border border-white/30 bg-black/40 backdrop-blur-md shadow-lg">
+                  <span className="text-xs md:text-base font-bold text-white tracking-widest shadow-black drop-shadow-sm">
                     歯科クリニック専用Notion構築・運用支援
                   </span>
                </div>
             </div>
 
-            {/* H1 Title */}
+            {/* H1 Title - Adjusted spacing, kerning, and sizing */}
             <h1 className="font-black text-white leading-tight drop-shadow-[0_8px_8px_rgba(0,0,0,0.9)]" style={{ fontFeatureSettings: '"palt"' }}>
-              <span className="block text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight md:whitespace-nowrap">
-                月<span className="text-brand-orange inline-block transform scale-110 mx-1">5万円</span>で始める<br className="md:hidden"/>歯科医院のDX
+              <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-widest md:whitespace-nowrap">
+                月<span className="text-brand-orange inline-block transform scale-110 mx-2 md:mx-4">5万円</span>で始める<br className="md:hidden"/>歯科医院のDX
               </span>
             </h1>
             
             {/* Annotation */}
-            <div className="flex justify-center md:justify-end max-w-5xl mx-auto mt-2 md:mt-4">
+            <div className="flex justify-center md:justify-end max-w-5xl mx-auto mt-3 md:mt-6">
               <p className="text-[10px] md:text-sm text-gray-300 font-medium tracking-wide">
                 ※コンサルティング費用 ※構築費別途
               </p>
@@ -109,7 +109,7 @@ export const Hero: React.FC = () => {
           </FadeIn>
 
           <FadeIn delay={300}>
-            <p className="mt-8 md:mt-10 text-lg md:text-3xl text-white font-bold tracking-[0.1em] leading-relaxed drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">
+            <p className="mt-8 md:mt-12 text-lg md:text-3xl text-white font-bold tracking-[0.1em] leading-relaxed drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">
               煩雑化した医院の情報管理を再構築
             </p>
           </FadeIn>
