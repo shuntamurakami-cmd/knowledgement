@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from './ui/Button';
 import { FadeIn } from './ui/FadeIn';
@@ -84,38 +85,32 @@ export const Hero: React.FC = () => {
           <FadeIn delay={100}>
             
             {/* Headline Label */}
-            <div className="flex justify-center mb-8 md:mb-12">
-               <div className="inline-flex items-center gap-3 px-4 py-1.5 md:px-6 md:py-2 rounded-full border border-white/30 bg-black/30 backdrop-blur-md shadow-lg">
-                  <span className="relative flex h-2 w-2 md:h-2.5 md:w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 md:h-2.5 md:w-2.5 bg-red-500"></span>
+            <div className="flex justify-center mb-8 md:mb-10">
+               <div className="inline-flex items-center gap-3 px-4 py-1.5 md:px-6 md:py-2 rounded-full border border-white/30 bg-black/40 backdrop-blur-md shadow-lg">
+                  <span className="text-[10px] md:text-sm font-bold text-white tracking-widest shadow-black drop-shadow-sm">
+                    歯科クリニック専用Notion構築・運用支援
                   </span>
-                  <span className="text-[10px] md:text-sm font-bold text-white tracking-[0.2em] uppercase shadow-black drop-shadow-sm">Next Generation Dental DX</span>
                </div>
             </div>
 
             {/* H1 Title */}
             <h1 className="font-black text-white leading-tight drop-shadow-[0_8px_8px_rgba(0,0,0,0.9)]" style={{ fontFeatureSettings: '"palt"' }}>
-              {/* Line 1: Mobile & Desktop */}
-              <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-8 tracking-[0.2em] md:tracking-[0.3em]">
-                歯科クリニックに
-              </span>
-              
-              {/* Line 2 & 3 (Mobile) / Line 2 (Desktop) 
-                  - Mobile: text-4xl with normal wrap but forced break tag.
-                  - Desktop: text-7xl with nowrap to force single line.
-              */}
-              <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-[0.05em] md:tracking-[0.1em] leading-tight md:whitespace-nowrap">
-                「情報戦略」という、<br className="md:hidden" />
-                武器を。
+              <span className="block text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight md:whitespace-nowrap">
+                月<span className="text-brand-orange inline-block transform scale-110 mx-1">5万円</span>で始める<br className="md:hidden"/>歯科医院のDX
               </span>
             </h1>
+            
+            {/* Annotation */}
+            <div className="flex justify-center md:justify-end max-w-5xl mx-auto mt-2 md:mt-4">
+              <p className="text-[10px] md:text-sm text-gray-300 font-medium tracking-wide">
+                ※コンサルティング費用 ※構築費別途
+              </p>
+            </div>
           </FadeIn>
 
           <FadeIn delay={300}>
-            <p className="mt-8 md:mt-12 text-sm md:text-2xl text-white font-bold tracking-[0.15em] md:tracking-[0.25em] leading-loose drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">
-              歯科クリニックの情報共有を<br className="md:hidden" />
-              <span className="inline-block">「仕組み化」する伴走支援</span>
+            <p className="mt-8 md:mt-10 text-lg md:text-3xl text-white font-bold tracking-[0.1em] leading-relaxed drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">
+              煩雑化した医院の情報管理を再構築
             </p>
           </FadeIn>
 
@@ -124,10 +119,10 @@ export const Hero: React.FC = () => {
               <Button 
                 variant="primary" 
                 showArrow 
-                className="px-8 py-4 text-base md:px-12 md:py-6 md:text-2xl rounded-full shadow-[0_0_50px_rgba(239,68,68,0.6)] border-2 border-white/30 hover:scale-105 active:scale-95 font-black tracking-wider"
+                className="px-10 py-4 text-lg md:px-16 md:py-6 md:text-2xl rounded-full shadow-[0_0_50px_rgba(239,68,68,0.6)] border-2 border-white/30 hover:scale-105 active:scale-95 font-black tracking-wider"
                 onClick={scrollToForm}
               >
-                無料相談・デモ画面を見る
+                DXに興味がある
               </Button>
             </div>
           </FadeIn>
