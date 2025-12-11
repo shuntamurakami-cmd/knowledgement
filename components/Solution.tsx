@@ -71,7 +71,7 @@ export const Solution: React.FC = () => {
                <div className="relative group">
                  <div className="absolute -inset-4 bg-blue-200/50 rounded-[2.5rem] -rotate-2 blur-sm transition-all group-hover:rotate-0 group-hover:bg-blue-300/50"></div>
                  <img 
-                   src="https://picsum.photos/800/600?random=1" 
+                   src="/image/demo-common.png" 
                    alt="共通ポータル画面デモ" 
                    className="relative w-full rounded-2xl shadow-2xl border border-gray-200 transition-transform duration-500 group-hover:scale-[1.02]"
                  />
@@ -141,7 +141,7 @@ export const Solution: React.FC = () => {
                <div className="relative group">
                  <div className="absolute -inset-4 bg-navy-800 rounded-[2.5rem] rotate-2 opacity-50 transition-all group-hover:rotate-0"></div>
                  <img 
-                   src="https://picsum.photos/800/600?random=2" 
+                   src="/image/demo-dept.png" 
                    alt="部署ポータル画面デモ" 
                    className="relative w-full rounded-2xl shadow-2xl border border-navy-700 transition-transform duration-500 group-hover:scale-[1.02]"
                  />
@@ -164,7 +164,7 @@ export const Solution: React.FC = () => {
                <div className="relative group">
                  <div className="absolute -inset-4 bg-orange-200/50 rounded-[3rem] -rotate-2 blur-sm transition-all group-hover:rotate-0"></div>
                  <img 
-                   src="https://picsum.photos/400/800?random=3" 
+                   src="/image/demo-mobile.png" 
                    alt="個人ポータルスマホ画面デモ" 
                    className="relative w-full max-w-lg mx-auto drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
                  />
