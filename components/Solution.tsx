@@ -27,7 +27,6 @@ export const Solution: React.FC = () => {
             <span className="text-blue-600 font-bold tracking-widest text-xl md:text-3xl block relative z-10">
               ナレッジメントが選ばれている理由
             </span>
-            {/* Handwritten Underline SVG */}
             <svg 
               className="absolute -bottom-2 left-0 w-full h-2 md:h-3 text-yellow-300/80 -z-10 transform -rotate-1" 
               viewBox="0 0 200 9" 
@@ -43,15 +42,9 @@ export const Solution: React.FC = () => {
             貴院だけの「デジタル本院」を構築
           </h2>
 
-          {/* Concept Box */}
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
             <div className="relative bg-white border border-blue-100 rounded-2xl p-8 md:p-12 shadow-xl">
-              {/* 
-                 Updated: 
-                 - Added 'leading-loose' to prevent yellow highlight overlapping the text above.
-                 - Added 'whitespace-nowrap inline-block' to the span to prevent "ru" from hanging on a new line.
-              */}
               <p className="text-xl md:text-3xl text-navy-900 leading-loose font-medium">
                 Notionを活用し、<br />
                 <span className="bg-yellow-100 px-2 py-1 rounded inline-block whitespace-nowrap">院長の思考を「仕組み」に変える</span><br />
@@ -65,12 +58,9 @@ export const Solution: React.FC = () => {
         </FadeIn>
       </div>
 
-      {/* Layer 1: Common Portal (Updated Background) */}
+      {/* Layer 1: Common Portal */}
       <div className="py-20 md:py-32 bg-slate-50 relative overflow-hidden">
-        {/* Subtle Grid Pattern */}
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '40px 40px', opacity: 0.4 }}></div>
-        
-        {/* Giant Number Background */}
         <div className="absolute top-10 right-0 md:right-[10%] text-[12rem] md:text-[20rem] font-black text-slate-200 leading-none select-none pointer-events-none -z-10 tracking-tighter opacity-60">
           01
         </div>
@@ -81,7 +71,7 @@ export const Solution: React.FC = () => {
                <div className="relative group">
                  <div className="absolute -inset-4 bg-blue-200/50 rounded-[2.5rem] -rotate-2 blur-sm transition-all group-hover:rotate-0 group-hover:bg-blue-300/50"></div>
                  <img 
-                   src="/image/demo-common.png" 
+                   src="https://picsum.photos/800/600?random=1" 
                    alt="共通ポータル画面デモ" 
                    className="relative w-full rounded-2xl shadow-2xl border border-gray-200 transition-transform duration-500 group-hover:scale-[1.02]"
                  />
@@ -104,7 +94,6 @@ export const Solution: React.FC = () => {
                 新人からベテランまで、院内の全情報へここから迷わずアクセスできます。
               </p>
               
-              {/* Feature Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FeatureCard icon={FileText} title="マニュアル一元管理" />
                 <FeatureCard icon={Layout} title="院内お知らせ掲示板" />
@@ -116,9 +105,8 @@ export const Solution: React.FC = () => {
         </div>
       </div>
 
-      {/* Layer 2: Management (Dark Mode) */}
+      {/* Layer 2: Management */}
       <div className="py-20 md:py-32 bg-navy-900 text-white relative overflow-hidden">
-        {/* Giant Number Background */}
         <div className="absolute top-10 left-0 md:left-[5%] text-[12rem] md:text-[20rem] font-black text-white/5 leading-none select-none pointer-events-none -z-10 tracking-tighter">
           02
         </div>
@@ -141,7 +129,6 @@ export const Solution: React.FC = () => {
                 幹部ミーティングの議事録やTODOを管理し、意思決定のスピードを劇的に上げます。
               </p>
 
-              {/* Feature Cards Grid (Dark Mode) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FeatureCard icon={Users} title="採用管理・面接ログ" dark />
                 <FeatureCard icon={FileSignature} title="稟議申請・面談記録" dark />
@@ -154,7 +141,7 @@ export const Solution: React.FC = () => {
                <div className="relative group">
                  <div className="absolute -inset-4 bg-navy-800 rounded-[2.5rem] rotate-2 opacity-50 transition-all group-hover:rotate-0"></div>
                  <img 
-                   src="/image/demo-dept.png" 
+                   src="https://picsum.photos/800/600?random=2" 
                    alt="部署ポータル画面デモ" 
                    className="relative w-full rounded-2xl shadow-2xl border border-navy-700 transition-transform duration-500 group-hover:scale-[1.02]"
                  />
@@ -164,12 +151,9 @@ export const Solution: React.FC = () => {
         </div>
       </div>
 
-      {/* Layer 3: Personal Page (Updated Background) */}
+      {/* Layer 3: Personal Page */}
       <div className="py-20 md:py-32 bg-[#fff7ed] relative overflow-hidden">
-        {/* Subtle Dot Pattern */}
         <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(#fdba74 1px, transparent 1px)', backgroundSize: '30px 30px', opacity: 0.3 }}></div>
-
-        {/* Giant Number Background */}
         <div className="absolute top-10 right-0 md:right-[10%] text-[12rem] md:text-[20rem] font-black text-orange-100 leading-none select-none pointer-events-none -z-10 tracking-tighter opacity-80">
           03
         </div>
@@ -180,7 +164,7 @@ export const Solution: React.FC = () => {
                <div className="relative group">
                  <div className="absolute -inset-4 bg-orange-200/50 rounded-[3rem] -rotate-2 blur-sm transition-all group-hover:rotate-0"></div>
                  <img 
-                   src="/image/demo-mobile.png" 
+                   src="https://picsum.photos/400/800?random=3" 
                    alt="個人ポータルスマホ画面デモ" 
                    className="relative w-full max-w-lg mx-auto drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
                  />
@@ -203,7 +187,6 @@ export const Solution: React.FC = () => {
                 「今日やるべきこと」が明確になり、自律的な動きを促します。
               </p>
               
-              {/* Feature Cards Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FeatureCard icon={Smartphone} title="スマホで完結Myタスク" />
                 <FeatureCard icon={Calendar} title="有給・交通費申請" />
