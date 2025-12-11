@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from './ui/Button';
 import { FadeIn } from './ui/FadeIn';
@@ -13,9 +12,8 @@ import {
   BookOpen,
   Layout,
   Filter,
-  Settings
+  FileText
 } from 'lucide-react';
-import { FileText } from 'lucide-react';
 
 const NotionSidebarItem = ({ icon: Icon, label, active = false }: { icon: any, label: string, active?: boolean }) => (
   <div className={`flex items-center gap-3 px-3 py-1.5 rounded cursor-pointer transition-colors ${active ? 'bg-gray-800 text-white' : 'text-gray-400 hover:bg-gray-900 hover:text-white'}`}>
@@ -50,6 +48,28 @@ const DashboardCard = ({ icon: Icon, color, label, subItems }: { icon: any, colo
         </li>
       ))}
     </ul>
+  </div>
+);
+
+// Notion Mobile Mockup Helper Components
+const NotionMobileItem = ({ emoji, title }: { emoji: string, title: string }) => (
+  <div className="flex items-center gap-2 py-2 cursor-pointer group">
+    <span className="text-lg w-6 text-center flex-shrink-0 leading-none">{emoji}</span>
+    <span className="text-gray-700 text-xs font-medium border-b border-gray-300 group-hover:text-black group-hover:border-gray-500 transition-colors leading-tight pb-0.5 truncate w-full">
+      {title}
+    </span>
+  </div>
+);
+
+const NotionMobileSection = ({ title, children }: { title: string, children?: React.ReactNode }) => (
+  <div className="bg-white rounded-lg p-3 mb-3 border border-gray-100 shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+    <div className="flex items-center gap-2 mb-2">
+      <div className="w-2.5 h-2.5 bg-[#4ea7f5] rounded-sm flex-shrink-0"></div>
+      <span className="font-bold text-gray-800 text-xs">{title}</span>
+    </div>
+    <div className="pl-1 space-y-0.5">
+      {children}
+    </div>
   </div>
 );
 
@@ -93,24 +113,21 @@ export const Hero: React.FC = () => {
                </div>
             </div>
 
-            {/* H1 Title - Adjusted spacing, kerning, and sizing */}
+            {/* H1 Title - Updated with Red Background */}
             <h1 className="font-black text-white leading-tight drop-shadow-[0_8px_8px_rgba(0,0,0,0.9)]" style={{ fontFeatureSettings: '"palt"' }}>
-              <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-widest md:whitespace-nowrap">
-                月<span className="text-brand-orange inline-block transform scale-110 mx-2 md:mx-4">5万円</span>で始める<br className="md:hidden"/>歯科医院のDX
+              <span className="block text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-widest">
+                貴院専用の<br className="md:hidden"/>
+                <span className="bg-[#ef4444] px-2 md:px-4 py-1 inline-block mx-1">歯科特化Notion</span>
+                を<br className="md:hidden"/>構築いたします
               </span>
             </h1>
             
-            {/* Annotation */}
-            <div className="flex justify-center md:justify-end max-w-5xl mx-auto mt-3 md:mt-6">
-              <p className="text-[10px] md:text-sm text-gray-300 font-medium tracking-wide">
-                ※コンサルティング費用 ※構築費別途
-              </p>
-            </div>
+            {/* Annotation Removed */}
           </FadeIn>
 
           <FadeIn delay={300}>
             <p className="mt-8 md:mt-12 text-lg md:text-3xl text-white font-bold tracking-[0.1em] leading-relaxed drop-shadow-[0_4px_4px_rgba(0,0,0,1)]">
-              煩雑化した医院の情報管理を再構築
+              情報管理と教育は、仕組で解決
             </p>
           </FadeIn>
 
@@ -122,7 +139,7 @@ export const Hero: React.FC = () => {
                 className="px-10 py-4 text-lg md:px-16 md:py-6 md:text-2xl rounded-full shadow-[0_0_50px_rgba(239,68,68,0.6)] border-2 border-white/30 hover:scale-105 active:scale-95 font-black tracking-wider"
                 onClick={scrollToForm}
               >
-                DXに興味がある
+                Notion活用に興味がある
               </Button>
             </div>
           </FadeIn>
@@ -138,10 +155,6 @@ export const Hero: React.FC = () => {
                <div className="w-1 md:w-1.5 h-1 md:h-1.5 bg-gray-800 rounded-full"></div>
             </div>
 
-            {/* 
-               Updated: Increased min-height for mobile to ensure content isn't cut off.
-               h-[500px] on mobile (was 300px)
-            */}
             <div className="bg-white rounded-xl overflow-hidden flex h-[500px] sm:h-[600px] md:h-[700px]">
               
               {/* Sidebar (Black) */}
@@ -235,7 +248,7 @@ export const Hero: React.FC = () => {
                                <div className="w-12 h-12 bg-pink-100 rounded-full overflow-hidden border-2 border-white shadow-sm">
                                   {/* Placeholder for avatar */}
                                   <svg className="w-full h-full text-pink-300 fill-current translate-y-1" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                               </div>
+                                </div>
                                <div>
                                  <p className="text-sm font-bold text-gray-800">小林 由佳</p>
                                  <p className="text-xs text-gray-500 mt-0.5">11月29日</p>
@@ -251,59 +264,72 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Mobile Mockup (Floating Bottom Left) - Height Increased */}
-          <div className="absolute -bottom-8 -left-4 md:-left-16 w-40 sm:w-56 md:w-[320px] bg-[#222] rounded-[2rem] md:rounded-[3rem] p-2 md:p-4 shadow-[0_30px_60px_rgba(0,0,0,0.7)] border-[4px] md:border-[6px] border-[#333] transform -rotate-2 z-20 hidden sm:block ring-1 ring-white/5">
-            <div className="bg-white rounded-[1.5rem] md:rounded-[2.2rem] overflow-hidden h-[500px] sm:h-[600px] md:h-[700px] relative border border-gray-200">
-               {/* Mobile Notch */}
-               <div className="absolute top-0 left-1/2 -translate-x-1/2 h-4 md:h-7 w-24 md:w-36 bg-black rounded-b-xl md:rounded-b-2xl z-30"></div>
+          {/* Mobile Mockup (Floating Bottom Left) - Notion Style */}
+          <div className="absolute -bottom-10 -left-4 md:-left-16 w-48 sm:w-60 md:w-[320px] bg-[#222] rounded-[2.5rem] md:rounded-[3.5rem] p-2 md:p-3 shadow-[0_30px_60px_rgba(0,0,0,0.7)] border-[4px] md:border-[6px] border-[#333] transform -rotate-3 z-30 hidden sm:block ring-1 ring-white/10">
+            <div className="bg-[#f7f7f5] rounded-[2rem] md:rounded-[3rem] overflow-hidden h-[500px] sm:h-[600px] md:h-[720px] relative flex flex-col font-sans">
                
-               {/* Mobile Header */}
-               <div className="bg-white text-gray-800 pt-8 md:pt-12 pb-2 md:pb-4 px-3 md:px-5 border-b border-gray-100">
-                  <div className="text-[10px] md:text-xs font-bold text-gray-400 flex items-center gap-1 mb-1">Notion</div>
-                  <div className="text-sm md:text-xl font-black tracking-tight">ナレッジメント</div>
+               {/* Notion Mobile Header */}
+               <div className="bg-[#37352f] text-white px-5 py-4 pt-10 md:pt-14 pb-4 flex items-center gap-2 sticky top-0 z-20 shadow-sm">
+                  {/* Simple Menu Icon */}
+                  <div className="flex flex-col gap-1 mr-1">
+                     <div className="w-3.5 h-0.5 bg-white/80"></div>
+                     <div className="w-3.5 h-0.5 bg-white/80"></div>
+                     <div className="w-3.5 h-0.5 bg-white/80"></div>
+                  </div>
+                  <div className="text-xl font-bold tracking-tight">Notion</div>
+                  <div className="text-sm text-gray-300 font-medium">ナレッジメント</div>
                </div>
 
-               <div className="p-3 md:p-5 overflow-y-auto h-full pb-16 md:pb-24 bg-[#f7f7f5]">
-                  <div className="space-y-3 md:space-y-5">
-                    <div className="flex flex-col gap-2">
-                       <div className="flex items-center gap-2 text-gray-500 font-bold text-[10px] md:text-xs uppercase tracking-wider">
-                          <Folder className="w-3 h-3" /> 経営管理
-                       </div>
-                       <div className="bg-white rounded-lg p-1 shadow-sm border border-gray-100">
-                          <div className="p-2 md:p-3 border-b border-gray-50 flex items-center gap-2 md:gap-3">
-                            <div className="w-6 h-6 md:w-8 md:h-8 rounded bg-blue-50 flex items-center justify-center text-sm md:text-lg">📅</div>
-                            <span className="text-xs md:text-sm font-medium">年間カレンダー</span>
-                          </div>
-                          <div className="p-2 md:p-3 flex items-center gap-2 md:gap-3">
-                            <div className="w-6 h-6 md:w-8 md:h-8 rounded bg-red-50 flex items-center justify-center text-sm md:text-lg">📢</div>
-                            <span className="text-xs md:text-sm font-medium">お知らせ</span>
-                          </div>
-                       </div>
-                    </div>
+               {/* Scrollable Content */}
+               <div className="flex-1 overflow-y-auto no-scrollbar p-3">
+                  
+                  <NotionMobileSection title="経営管理">
+                     <NotionMobileItem emoji="🗓️" title="年間カレンダー" />
+                     <NotionMobileItem emoji="📢" title="お知らせ" />
+                     <NotionMobileItem emoji="👥" title="組織図" />
+                  </NotionMobileSection>
 
-                    <div className="flex flex-col gap-2">
-                       <div className="flex items-center gap-2 text-gray-500 font-bold text-[10px] md:text-xs uppercase tracking-wider">
-                          <Users className="w-3 h-3" /> 組織/採用
-                       </div>
-                       <div className="bg-white rounded-lg p-1 shadow-sm border border-gray-100">
-                          <div className="p-2 md:p-3 border-b border-gray-50 flex items-center gap-2 md:gap-3">
-                            <div className="w-6 h-6 md:w-8 md:h-8 rounded bg-orange-50 flex items-center justify-center text-sm md:text-lg">🎉</div>
-                            <span className="text-xs md:text-sm font-medium">Welcome to Tenyi</span>
-                          </div>
-                          <div className="p-2 md:p-3 flex items-center gap-2 md:gap-3">
-                            <div className="w-6 h-6 md:w-8 md:h-8 rounded bg-yellow-50 flex items-center justify-center text-sm md:text-lg">📜</div>
-                            <span className="text-xs md:text-sm font-medium">就業規則</span>
-                          </div>
-                       </div>
-                    </div>
+                  <NotionMobileSection title="組織/採用">
+                     <NotionMobileItem emoji="🎉" title="Welcome to Tenyi" />
+                     <NotionMobileItem emoji="📜" title="就業規則" />
+                     <NotionMobileItem emoji="❤️" title="経営理念" />
+                     <NotionMobileItem emoji="🏆" title="評価制度" />
+                     <NotionMobileItem emoji="👤" title="スタッフ紹介" />
+                     <NotionMobileItem emoji="📐" title="Tenyiデンタルクリニックご応募の..." />
+                  </NotionMobileSection>
+
+                  <NotionMobileSection title="その他">
+                     <NotionMobileItem emoji="📱" title="入力用ページ" />
+                  </NotionMobileSection>
+
+                  <NotionMobileSection title="患者管理">
+                     <NotionMobileItem emoji="🦷" title="技工物管理表" />
+                     <NotionMobileItem emoji="💬" title="カウンセリングリスト" />
+                     <NotionMobileItem emoji="🔧" title="矯正患者管理表" />
+                     <NotionMobileItem emoji="📝" title="インプラント患者管理表" />
+                     <NotionMobileItem emoji="📊" title="アポ数管理表" />
+                  </NotionMobileSection>
+                  
+                  {/* Spacer for FAB */}
+                  <div className="h-16"></div>
+               </div>
+               
+               {/* FAB */}
+               <div className="absolute bottom-6 right-6">
+                  <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-xl border border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors">
+                     <span className="transform -translate-y-0.5">✏️</span>
+                  </div>
+                  {/* Tiny duck icon simulation on bottom right of fab */}
+                  <div className="absolute -bottom-1 -right-1 bg-white rounded-full p-0.5 shadow-sm border border-gray-100">
+                     <span className="text-[10px]">🐤</span>
                   </div>
                </div>
-               
-               {/* Mobile Bottom Bar */}
-               <div className="absolute bottom-0 left-0 right-0 h-10 md:h-16 bg-white border-t flex items-center justify-around text-gray-400 z-20 pb-1 md:pb-2">
-                   <Search className="w-4 h-4 md:w-6 md:h-6" />
-                   <div className="p-1.5 md:p-2 bg-gray-100 rounded-full text-black"><Home className="w-3 h-3 md:w-5 md:h-5" /></div>
-                   <Settings className="w-4 h-4 md:w-6 md:h-6" />
+
+               {/* Bottom Bar (Simple) */}
+               <div className="bg-white border-t border-gray-200 h-14 flex justify-around items-center px-4">
+                  <div className="w-5 h-5 rounded-full border-2 border-gray-400"></div>
+                  <Search className="w-5 h-5 text-gray-400" />
+                  <Bell className="w-5 h-5 text-gray-400" />
                </div>
             </div>
           </div>
