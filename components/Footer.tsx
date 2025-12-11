@@ -8,7 +8,6 @@ export const Footer: React.FC = () => {
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
            
-           {/* Left: Logo & Company Info */}
            <div className="text-center md:text-left">
               <div className="text-2xl font-black tracking-widest mb-2">ナレッジメント</div>
               <div className="text-xs text-gray-500 leading-relaxed flex flex-col md:flex-row md:items-center gap-1 md:gap-3">
@@ -18,7 +17,6 @@ export const Footer: React.FC = () => {
               </div>
            </div>
 
-           {/* Right: Link Button */}
            <div className="flex-shrink-0">
               <a 
                 href="https://tenyi.co.jp/" 
@@ -32,7 +30,6 @@ export const Footer: React.FC = () => {
            </div>
         </div>
 
-        {/* Copyright */}
         <div className="mt-6 pt-6 border-t border-white/5 text-center text-[10px] text-gray-700">
            &copy; {new Date().getFullYear()} Tenyi. All rights reserved.
         </div>
