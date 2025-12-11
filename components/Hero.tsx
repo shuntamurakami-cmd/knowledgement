@@ -118,7 +118,7 @@ export const Hero: React.FC = () => {
               <span className="block text-3xl sm:text-4xl md:text-6xl lg:text-7xl tracking-widest">
                 貴院専用の<br className="md:hidden"/>
                 <span className="bg-[#ef4444] px-2 md:px-4 py-1 inline-block mx-1">歯科特化Notion</span>
-                を<br className="md:hidden"/>構築いたします
+                を<br />構築いたします
               </span>
             </h1>
             
