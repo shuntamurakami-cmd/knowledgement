@@ -4,12 +4,16 @@ import { Button } from './ui/Button';
 import { FadeIn } from './ui/FadeIn';
 
 export const Pricing: React.FC = () => {
+  const scrollToForm = () => {
+    const form = document.getElementById('contact-form');
+    form?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="py-24 bg-navy-900 text-white">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           
-          {/* Pricing Card */}
           <FadeIn direction="up">
             <div className="bg-white text-navy-900 rounded-3xl shadow-2xl overflow-hidden mb-12">
               <div className="p-8 md:p-12 text-center border-b border-gray-100">
@@ -22,7 +26,6 @@ export const Pricing: React.FC = () => {
                 <p className="mt-4 text-gray-500 text-sm">※2年目以降：月額5万円（運用サポート・保守）</p>
               </div>
               
-              {/* Value Proposition Box */}
               <div className="p-6 md:p-10 bg-gradient-to-br from-yellow-50 to-orange-50 border-t border-orange-100">
                 <div className="flex gap-4 items-start">
                   <div className="bg-yellow-100 p-2 rounded-full flex-shrink-0 mt-1">
@@ -38,13 +41,17 @@ export const Pricing: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-8 bg-gray-50 flex justify-center">
+              <div className="p-8 bg-gray-50 flex flex-col items-center gap-8">
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm w-full max-w-2xl">
                       <li className="flex items-center gap-2"><Check className="text-green-500 w-5 h-5" /> 専用Notion環境構築</li>
                       <li className="flex items-center gap-2"><Check className="text-green-500 w-5 h-5" /> スタッフ向け導入研修</li>
                       <li className="flex items-center gap-2"><Check className="text-green-500 w-5 h-5" /> 運用マニュアル作成</li>
                       <li className="flex items-center gap-2"><Check className="text-green-500 w-5 h-5" /> 月次定例ミーティング</li>
                   </ul>
+                  
+                  <Button variant="primary" onClick={scrollToForm} showArrow className="w-full md:w-auto text-lg px-12 py-4 shadow-xl hover:shadow-2xl">
+                    まずは無料相談する
+                  </Button>
               </div>
             </div>
           </FadeIn>
