@@ -1,4 +1,5 @@
 import React from 'react';
+import { Quote } from 'lucide-react';
 import { FadeIn } from './ui/FadeIn';
 
 const testimonials = [
@@ -29,11 +30,14 @@ export const Cases: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
            {testimonials.map((item, i) => (
              <FadeIn key={i} delay={i * 100}>
-                <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 h-full flex flex-col shadow-sm">
-                   <div className="mb-6 text-navy-900 font-bold text-lg border-b border-gray-200 pb-4">
+                <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 h-full flex flex-col shadow-sm hover:shadow-md transition-shadow duration-300 relative group">
+                   <div className="absolute top-6 right-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                     <Quote className="w-12 h-12 text-blue-600" />
+                   </div>
+                   <div className="mb-6 text-navy-900 font-bold text-lg border-b border-gray-200 pb-4 relative z-10">
                       {item.name}
                    </div>
-                   <p className="text-gray-600 text-sm leading-loose flex-grow">
+                   <p className="text-gray-600 text-sm leading-loose flex-grow relative z-10">
                       {item.text}
                    </p>
                 </div>
