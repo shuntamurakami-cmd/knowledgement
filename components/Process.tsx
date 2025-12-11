@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { FadeIn } from './ui/FadeIn';
 import { MessageCircle, Settings, Users, TrendingUp, ChevronDown, ArrowRight, CheckCircle, Mail, Loader2 } from 'lucide-react';
@@ -42,7 +41,6 @@ export const Process: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   
-  // リアルタイム入力チェック用のState
   const [formValues, setFormValues] = useState({
     company: '',
     name: '',
@@ -52,30 +50,24 @@ export const Process: React.FC = () => {
     message: ''
   });
   
-  // 必須項目チェック: 名前、メールアドレス、電話番号
   const isValid = 
     formValues.name.trim() !== '' && 
     formValues.email.trim() !== '' && 
     formValues.tel.trim() !== '';
 
-  // Formspree Endpoint
   const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqajlwez";
 
-  // 入力変更ハンドラ
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormValues(prev => ({ ...prev, [name]: value }));
   };
 
-  // 手動送信ハンドラ
-  const handleManualSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleManualSubmit = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    // 連打防止 OR バリデーションNGなら即終了
     if (isSubmitting || !isValid) return;
 
-    // GTMイベントの発火
     if (typeof window !== 'undefined') {
       (window as any).dataLayer = (window as any).dataLayer || [];
       (window as any).dataLayer.push({
@@ -83,10 +75,8 @@ export const Process: React.FC = () => {
       });
     }
 
-    // 送信処理開始
     setIsSubmitting(true);
 
-    // FormDataを手動で構築（<form>タグを使わないため）
     const formData = new FormData();
     formData.append('company', formValues.company);
     formData.append('name', formValues.name);
@@ -140,7 +130,6 @@ export const Process: React.FC = () => {
         </div>
 
         <div className="relative max-w-4xl mx-auto pl-4 md:pl-0">
-          {/* Vertical Line - Connected all the way down */}
           <div className="absolute left-[2.25rem] md:left-[3rem] top-8 bottom-0 w-1 bg-gray-300"></div>
 
           <div className="space-y-12 relative z-10">
@@ -148,14 +137,12 @@ export const Process: React.FC = () => {
               <FadeIn key={index} delay={index * 100} direction="up">
                 <div className="relative flex gap-6 md:gap-12 items-start group">
                   
-                  {/* Left Column: Number & Icon */}
                   <div className="flex flex-col items-center relative z-10 flex-shrink-0 w-20 md:w-24 bg-gray-200 py-2">
                     <div className="w-16 h-16 md:w-24 md:h-24 bg-white rounded-full border-4 border-white shadow-xl flex items-center justify-center group-hover:scale-110 group-hover:border-blue-200 transition-all duration-300 relative z-20">
                        <span className="text-2xl md:text-4xl font-black text-blue-600">{item.step}</span>
                     </div>
                   </div>
 
-                  {/* Right Column: Content Card */}
                   <div className="flex-1 pt-2">
                     <div className="bg-white rounded-3xl p-8 md:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.05)] border-2 border-gray-300 hover:border-blue-300 hover:shadow-[0_20px_50px_rgba(59,130,246,0.1)] transition-all duration-300 relative overflow-hidden">
                       
@@ -187,7 +174,6 @@ export const Process: React.FC = () => {
             ))}
           </div>
 
-          {/* Connection to Form */}
           <div className="relative z-10 pl-[2.25rem] md:pl-[3rem]">
              <div className="ml-6 md:ml-12 pt-12 pb-8">
                 <div className="flex items-center gap-4 text-gray-400 font-bold tracking-widest">
@@ -203,7 +189,6 @@ export const Process: React.FC = () => {
 
         </div>
 
-        {/* Contact Form Section */}
         <FadeIn delay={200}>
            <div id="contact-form" className="relative z-20 max-w-3xl mx-auto bg-white rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.1)] border-2 border-blue-100 overflow-hidden mt-0">
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-center">
@@ -215,7 +200,6 @@ export const Process: React.FC = () => {
               
               <div className="p-8 md:p-12">
                 {isSubmitted ? (
-                  /* Thank You View */
                   <div className="text-center py-20 animate-in fade-in zoom-in duration-500">
                     <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-sm">
                       <CheckCircle className="w-12 h-12 text-green-600" />
@@ -235,10 +219,8 @@ export const Process: React.FC = () => {
                     </button>
                   </div>
                 ) : (
-                  /* Form View - REPLACED <form> with <div> to prevent auto-detection */
-                  <div className="space-y-6" id="contactForm">
+                  <div className="space-y-6" id="inquiry-section">
                     <div className="grid md:grid-cols-2 gap-6">
-                      {/* Clinic Name */}
                       <div className="col-span-2">
                         <label className="block text-sm font-bold text-gray-700 mb-2">
                           医院名 <span className="text-red-500">*</span>
@@ -255,7 +237,6 @@ export const Process: React.FC = () => {
                         />
                       </div>
 
-                      {/* Name */}
                       <div className="col-span-2 md:col-span-1">
                         <label className="block text-sm font-bold text-gray-700 mb-2">
                           お名前 <span className="text-red-500">*</span>
@@ -272,7 +253,6 @@ export const Process: React.FC = () => {
                         />
                       </div>
 
-                      {/* Job Title */}
                       <div className="col-span-2 md:col-span-1">
                         <label className="block text-sm font-bold text-gray-700 mb-2">
                           職種
@@ -289,7 +269,6 @@ export const Process: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Email */}
                     <div>
                       <label className="block text-sm font-bold text-gray-700 mb-2">
                         メールアドレス <span className="text-red-500">*</span>
@@ -306,7 +285,6 @@ export const Process: React.FC = () => {
                       />
                     </div>
 
-                    {/* Phone */}
                     <div>
                       <label className="block text-sm font-bold text-gray-700 mb-2">
                         電話番号 <span className="text-xs font-normal text-gray-500 ml-1">※(-)ハイフン不要</span> <span className="text-red-500">*</span>
@@ -323,7 +301,6 @@ export const Process: React.FC = () => {
                       />
                     </div>
 
-                    {/* Message */}
                     <div>
                       <label className="block text-sm font-bold text-gray-700 mb-2">
                         ご質問・ご要望
@@ -339,15 +316,14 @@ export const Process: React.FC = () => {
                       ></textarea>
                     </div>
 
-                    {/* Submit Button */}
                     <div className="pt-4">
-                      <button 
-                        type="button"
-                        onClick={handleManualSubmit}
-                        disabled={isSubmitting || !isValid}
-                        className={`w-full font-bold text-xl py-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+                      <div 
+                        role="button"
+                        tabIndex={0}
+                        onClick={isValid && !isSubmitting ? handleManualSubmit : undefined}
+                        className={`w-full font-bold text-xl py-4 rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 select-none ${
                           isValid && !isSubmitting
-                            ? 'bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white hover:shadow-indigo-500/30 hover:-translate-y-0.5 cursor-pointer'
+                            ? 'bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white hover:shadow-indigo-500/30 hover:-translate-y-0.5 cursor-pointer active:scale-[0.99]'
                             : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                         }`}
                       >
@@ -360,8 +336,7 @@ export const Process: React.FC = () => {
                             送信する <ArrowRight className="w-6 h-6" />
                           </>
                         )}
-                      </button>
-                      {/* Helper text for disabled state */}
+                      </div>
                       {!isValid && (
                         <p className="text-center text-sm text-red-500 mt-2 font-bold">
                           ※必須項目（お名前・メールアドレス・電話番号）を入力してください
@@ -373,7 +348,6 @@ export const Process: React.FC = () => {
               </div>
            </div>
 
-           {/* Contact Email Info */}
            <div className="mt-12 text-center pb-8">
              <p className="text-gray-500 text-sm mb-2 font-bold">メールでのお問い合わせはこちら</p>
              <a 
