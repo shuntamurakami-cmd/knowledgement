@@ -21,7 +21,6 @@ export const FadeIn: React.FC<FadeInProps> = ({
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Once visible, we can stop observing
           if (domRef.current) observer.unobserve(domRef.current);
         }
       });
