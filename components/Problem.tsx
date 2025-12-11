@@ -44,7 +44,7 @@ export const Problem: React.FC = () => {
           
           {/* Column 1 */}
           <FadeIn delay={100} className="flex flex-col h-full">
-            {/* Problem Box: Dashed Border & Gray Background (Represents instability) */}
+            {/* Problem Box */}
             <div className="relative bg-gray-100/80 rounded-2xl px-6 py-10 md:p-10 text-center border-2 border-dashed border-gray-300 min-h-[260px] flex flex-col items-center justify-center group transition-colors hover:bg-gray-100">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gray-600 text-white px-6 py-1.5 rounded-full text-base font-bold tracking-widest shadow-sm whitespace-nowrap">
                 お悩み 01
@@ -59,7 +59,7 @@ export const Problem: React.FC = () => {
 
             <ProblemArrow />
 
-            {/* Solution Card: Solid White, Strong Shadow, Blue Accent (Represents stability) */}
+            {/* Solution Card */}
             <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border-t-4 border-t-blue-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 flex-grow text-center flex flex-col">
                <div className="w-16 h-16 mx-auto bg-blue-50 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
                   <Database className="w-8 h-8 text-blue-600" />
